@@ -1,5 +1,12 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+
+// Кажется, сделано не по ТЗ, так как в итоге в andExpect, andDo, status и body
+// можно в итоге обращаться к любым методам с соответствующей сигнатурой.
+// А как сделать так, чтобы можно было обращаться только к методам соответствующего класса,
+// сколько не пыталась понять - не поняла(((
+
+val repeatFun: String.(Int) -> String = { times -> this.repeat(times) }
+val twoParameters: (String, Int) -> String = repeatFun // OK
+
 data class Response (
     val code: Int,
     val body: String?
@@ -80,9 +87,6 @@ fun main() {
         }
     }.response
 }
-
-
-
 
 
 
