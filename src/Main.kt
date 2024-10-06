@@ -19,12 +19,12 @@ class Client {
 class ResponseActions(code: Int, body: String?) {
     val response: Response = Response(code, body)
 
-    fun andDo(responseFunction: (Response) -> Unit): ResponseActions {
+    fun andDo(responseFunction: ResponseActions.(Response) -> Unit): ResponseActions {
         responseFunction(response)
         return this
     }
 
-    fun andExpect(responseMatcher: () -> Unit) : ResponseActions {
+    fun andExpect(responseMatcher: ResponseActions.() -> Unit) : ResponseActions {
         return this.apply {
             responseMatcher()
         }
@@ -73,8 +73,8 @@ fun mock() {
 }
 fun main() {
     val mockClient = Client()
-    val response: Response = mockClient.perform(200, "OK").apply {
-        andExpect {
+    val response: Response = mockClient.perform(200, "OK")
+        .andExpect {
             status {
                 isOk()
             }
@@ -82,10 +82,9 @@ fun main() {
                 isNotNull()
             }
         }
-        andDo { response ->
+        .andDo { response ->
             println(response)
-        }
-    }.response
+        }.response
 }
 
 
