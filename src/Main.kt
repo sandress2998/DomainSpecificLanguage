@@ -68,9 +68,6 @@ class StatusResponseMatchersException: ResponseMatchersException() {}
 class BodyResponseMatchersException: ResponseMatchersException() {}
 
 
-fun mock() {
-    println("This shouldn't display")
-}
 fun main() {
     val mockClient = Client()
     val response: Response = mockClient.perform(200, "OK")
